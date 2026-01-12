@@ -45,4 +45,17 @@ locals {
       data = { production = "backend" }
     }
   }
+
+  approles = {
+    axonaio-test = {
+      token_policies = ["axonaio-approle-test"]
+      token_ttl      = 2700000
+      token_max_ttl  = 32400000
+    }
+    axonaio-production = {
+      token_policies = ["axonaio-approle-production"]
+      token_ttl      = 2700000
+      token_max_ttl  = 32400000
+    }
+  }
 }

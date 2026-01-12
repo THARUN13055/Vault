@@ -1,9 +1,22 @@
 resource "vault_auth_backend" "approle" {
   type = "approle"
+  path = var.approle_backend_path
 }
 
 resource "vault_approle_auth_backend_role" "approle_role" {
-  backend        = var.approle_backend_path
-  role_name      = var.approle_role_name
-  token_policies = var.approle_token_policies
+  for_each = var.approle
+
+  backend        = vault_auth_backend.approle.path
+  role_name      = each.key
+  token_policies = each.value.token_policies
+  token_ttl      = each.value.token_ttl
+  token_max_ttl  = each.value.token_max_ttl
+  depends_on     = [vault_auth_backend.approle]
+}
+
+resource "vault_approle_auth_backend_role_secret_id" "approle_secret_id" {
+  for_each = var.approle
+
+  backend   = vault_auth_backend.approle.path
+  role_name = vault_approle_auth_backend_role.approle_role[each.key].role_name
 }

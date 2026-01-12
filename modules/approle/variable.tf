@@ -2,10 +2,11 @@ variable "approle_backend_path" {
   type = string
 }
 
-variable "approle_role_name" {
-  type = string
-}
-
-variable "approle_token_policies" {
-  type = list(string)
+variable "approle" {
+  description = "Approles per environments"
+  type = map(object({
+    token_policies = list(string)
+    token_ttl      = number
+    token_max_ttl  = number
+  }))
 }

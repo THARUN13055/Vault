@@ -9,6 +9,6 @@ variable "description" {
 variable "secrets" {
   type = map(object({
     data = map(string)
-  }
+    }
   ))
 }

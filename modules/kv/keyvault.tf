@@ -6,7 +6,8 @@ resource "vault_mount" "mount_path" {
 }
 
 resource "vault_kv_secret_v2" "vault_secrets" {
-    for_each = var.secrets
+  for_each            = var.secrets
+  
   mount               = var.mount_path
   name                = each.key
   cas                 = 1
@@ -15,5 +16,6 @@ resource "vault_kv_secret_v2" "vault_secrets" {
   custom_metadata {
     max_versions = 5
   }
+   depends_on = [vault_mount.mount_path]
 }
 

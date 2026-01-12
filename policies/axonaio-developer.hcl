@@ -1,39 +1,26 @@
-# ============================
-# Axonaio project - Developer
-# ============================
+# # Dev
+# path "axonaio-kv-secrets/data/dev/*" {
+#   capabilities = ["create", "read", "update", "list"]
+# }
 
-# Full access to dev environment
-path "kv/data/axonaio/dev/*" {
+# path "axonaio-kv-secrets/metadata/dev/*" {
+#   capabilities = ["list"]
+# }
+
+# Test
+path "axonaio-kv-secrets/data/test/*" {
   capabilities = ["create", "read", "update", "list"]
 }
 
-path "kv/metadata/axonaio/dev/*" {
+path "axonaio-kv-secrets/metadata/test/*" {
   capabilities = ["list"]
 }
 
-# Full access to test environment
-path "kv/data/axonaio/test/*" {
-  capabilities = ["create", "read", "update", "list"]
-}
-
-path "kv/metadata/axonaio/test/*" {
-  capabilities = ["list"]
-}
-
-# Read-only access to production
-path "kv/data/axonaio/prod/*" {
+# Prod (read-only)
+path "axonaio-kv-secrets/data/production/*" {
   capabilities = ["read"]
 }
 
-path "kv/metadata/axonaio/prod/*" {
-  capabilities = ["list"]
-}
-
-# Read-only shared secrets
-path "kv/data/axonaio/shared/*" {
-  capabilities = ["read"]
-}
-
-path "kv/metadata/axonaio/shared/*" {
+path "axonaio-kv-secrets/metadata/production/*" {
   capabilities = ["list"]
 }
