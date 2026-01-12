@@ -1,3 +1,4 @@
+# Create Policy to attach Group and approle
 module "policy" {
   source = "./modules/policy"
 
@@ -7,6 +8,7 @@ module "policy" {
   policy_file = "${path.module}/${each.value.file}"
 }
 
+# Creating Group 
 module "groups" {
   source = "./modules/identity/groups"
 
@@ -18,6 +20,7 @@ module "groups" {
   depends_on = [module.policy]
 }
 
+# Adding the existing users to the add in groups
 module "group_entities" {
   source = "./modules/identity/entities"
 
@@ -30,6 +33,7 @@ module "group_entities" {
   depends_on = [module.groups, data.vault_identity_entity.users]
 }
 
+# Create KV secret engine and add secrets
 module "kv" {
   source      = "./modules/kv"
   mount_path  = "axonaio-kv-secrets"
@@ -37,6 +41,7 @@ module "kv" {
   secrets     = local.kv_secrets
 }
 
+# Create AppRole auth method and add approles
 module "approle" {
   source               = "./modules/approle"
   approle_backend_path = "axonaio"

@@ -1,8 +1,10 @@
+# AppRole Authentication Backend Configuration
 resource "vault_auth_backend" "approle" {
   type = "approle"
   path = var.approle_backend_path
 }
 
+# AppRole Roles Creation
 resource "vault_approle_auth_backend_role" "approle_role" {
   for_each = var.approle
 
@@ -14,6 +16,7 @@ resource "vault_approle_auth_backend_role" "approle_role" {
   depends_on     = [vault_auth_backend.approle]
 }
 
+# AppRole Secret IDs Creation
 resource "vault_approle_auth_backend_role_secret_id" "approle_secret_id" {
   for_each = var.approle
 

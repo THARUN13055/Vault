@@ -1,3 +1,5 @@
+
+# Outputs for AppRole Role IDs and Secret IDs
 output "approle_role_ids" {
   description = "AppRole Role IDs for each environment"
   value = {
@@ -8,6 +10,7 @@ output "approle_role_ids" {
   }
 }
 
+# Outputs for AppRole Secret IDs
 output "approle_secret_ids" {
   description = "AppRole Secret IDs for each environment"
   value = {
