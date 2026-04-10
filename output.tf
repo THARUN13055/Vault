@@ -23,24 +23,24 @@ output "approle_secret_ids" {
 }
 
 # Separate outputs for easier access
-output "axonaio_test_role_id" {
-  description = "Role ID for axonaio-test"
-  value       = module.approle.approle_role_id["axonaio-test"]
+output "gistore_test_role_id" {
+  description = "Role ID for gistore-test"
+  value       = module.approle.approle_role_id["gistore-test"]
 }
 
-output "axonaio_test_secret_id" {
-  description = "Secret ID for axonaio-test"
-  value       = module.approle.approle_secret_id["axonaio-test"]
+output "gistore_test_secret_id" {
+  description = "Secret ID for gistore-test"
+  value       = module.approle.approle_secret_id["gistore-test"]
   sensitive   = true
 }
 
-output "axonaio_production_role_id" {
-  description = "Role ID for axonaio-production"
-  value       = module.approle.approle_role_id["axonaio-production"]
+output "gistore_production_role_id" {
+  description = "Role ID for gistore-production"
+  value       = module.approle.approle_role_id["gistore-production"]
 }
 
-output "axonaio_production_secret_id" {
-  description = "Secret ID for axonaio-production"
-  value       = module.approle.approle_secret_id["axonaio-production"]
+output "gistore_production_secret_id" {
+  description = "Secret ID for gistore-production"
+  value       = module.approle.approle_secret_id["gistore-production"]
   sensitive   = true
 }

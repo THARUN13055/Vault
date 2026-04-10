@@ -1,5 +1,5 @@
 variable "vault_addr" {
-  type    = string
+  type = string
 }
 
 variable "vault_token" {

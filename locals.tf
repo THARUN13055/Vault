@@ -3,16 +3,16 @@ locals {
 
   policies = {
     # group policy
-    axonaio-developer = {
-      file = "policies/axonaio-developer.hcl"
+    gistore-developer = {
+      file = "policies/gistore-developer.hcl"
     }
 
     # approle policy
-    axonaio-approle-test = {
-      file = "policies/axonaio-approle-test.hcl"
+    gistore-approle-test = {
+      file = "policies/gistore-approle-test.hcl"
     }
-    axonaio-approle-production = {
-      file = "policies/axonaio-approle-production.hcl"
+    gistore-approle-production = {
+      file = "policies/gistore-approle-production.hcl"
     }
   }
 
@@ -20,14 +20,14 @@ locals {
 
   groups = {
     # attach created policies to groups
-    axonaio-developer-group = {
-      policies = ["axonaio-developer"]
+    gistore-developer-group = {
+      policies = ["gistore-developer"]
     }
   }
 
   # Group membership
   group_members = {
-    axonaio-developer-group = ["tharun"] # list the existing users here
+    gistore-developer-group = ["devendra"] #list the existing users here
   }
 
   # KV Secrets to be created
@@ -47,13 +47,13 @@ locals {
   }
 
   approles = {
-    axonaio-test = {
-      token_policies = ["axonaio-approle-test"]
+    gistore-test = {
+      token_policies = ["gistore-approle-test"]
       token_ttl      = 2700000
       token_max_ttl  = 32400000
     }
-    axonaio-production = {
-      token_policies = ["axonaio-approle-production"]
+    gistore-production = {
+      token_policies = ["gistore-approle-production"]
       token_ttl      = 2700000
       token_max_ttl  = 32400000
     }

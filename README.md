@@ -19,10 +19,10 @@
 ## Architecture
 
 ```
-Project: axonaio
+Project: gistore
 │
 ├── KV (secrets engine)
-│   └── axonaio-kv-secrets/
+│   └── gistore-kv-secrets/
 │       ├── test/
 │       │   ├── frontend
 │       │   └── backend
@@ -31,21 +31,21 @@ Project: axonaio
 │           └── backend
 │
 ├── Policies
-│   ├── axonaio-developer (for human users)
-│   ├── axonaio-approle-test
-│   └── axonaio-approle-production
+│   ├── gistore-developer (for human users)
+│   ├── gistore-approle-test
+│   └── gistore-approle-production
 │
 ├── AppRole auth mount
-│   └── auth/axonaio/
+│   └── auth/gistore/
 │
 ├── AppRoles
-│   ├── axonaio-test
-│   │   ├── policy: axonaio-approle-test
+│   ├── gistore-test
+│   │   ├── policy: gistore-approle-test
 │   │   ├── role_id
 │   │   └── secret_ids
 │   │
-│   └── axonaio-production
-│       ├── policy: axonaio-approle-production
+│   └── gistore-production
+│       ├── policy: gistore-approle-production
 │       ├── role_id
 │       └── secret_ids
 │
@@ -75,7 +75,7 @@ We work with existing entities in Vault rather than creating new ones. This appr
 ### KV (Key-Value) Secrets Engine
 We use KV v2 to store secrets in a structured manner:
 ```
-axonaio-kv-secrets/
+gistore-kv-secrets/
 ├── test/
 │   ├── frontend
 │   └── backend
@@ -90,8 +90,8 @@ axonaio-kv-secrets/
 
 ### AppRole
 AppRoles provide machine/application authentication with limited permissions:
-- **axonaio-test**: Read-only access to test environment secrets
-- **axonaio-production**: Read-only access to production environment secrets
+- **gistore-test**: Read-only access to test environment secrets
+- **gistore-production**: Read-only access to production environment secrets
 
 ## Quick Start
 
@@ -122,8 +122,8 @@ terraform apply --auto-approve
 terraform output -json approle_secret_ids | jq
 
 # 7. Get specific outputs
-terraform output axonaio_test_role_id
-terraform output axonaio_production_role_id
+terraform output gistore_test_role_id
+terraform output gistore_production_role_id
 ```
 
 ## Security Best Practices
@@ -157,7 +157,7 @@ export VAULT_TOKEN="your-vault-token-here"
 Edit `locals.tf`:
 ```hcl
 group_members = {
-  axonaio-developer-group = ["tharun", "newuser"]  # Add username here
+  gistore-developer-group = ["tharun", "newuser"]  # Add username here
 }
 ```
 
@@ -204,18 +204,18 @@ terraform state list        # List resources in state
 vault status
 
 # Read a secret
-vault kv get axonaio-kv-secrets/test/backend
+vault kv get gistore-kv-secrets/test/backend
 
 # List secrets
-vault kv list axonaio-kv-secrets/test
+vault kv list gistore-kv-secrets/test
 
 # AppRole login (for testing)
-vault write auth/axonaio/login \
+vault write auth/gistore/login \
   role_id="<role_id>" \
   secret_id="<secret_id>"
 
 # Rotate AppRole secret
-vault write -f auth/axonaio/role/axonaio-production/secret-id
+vault write -f auth/gistore/role/gistore-production/secret-id
 ```
 
 ## Troubleshooting
@@ -237,7 +237,7 @@ vault list identity/entity/name
 Verify policy paths match exactly:
 ```bash
 vault policy read <policy-name>
-vault read auth/axonaio/role/<role-name>
+vault read auth/gistore/role/<role-name>
 ```
 
 ## Project Structure
@@ -263,26 +263,26 @@ vault read auth/axonaio/role/<role-name>
 │   └── approle/           # AppRole authentication
 │
 └── policies/              # HCL policy files
-    ├── axonaio-developer.hcl
-    ├── axonaio-approle-test.hcl
-    └── axonaio-approle-production.hcl
+    ├── gistore-developer.hcl
+    ├── gistore-approle-test.hcl
+    └── gistore-approle-production.hcl
 ```
 
 ## Access Control Summary
 
 ### Human Users (Developers)
-- **Group**: axonaio-developer-group
-- **Policy**: axonaio-developer
+- **Group**: gistore-developer-group
+- **Policy**: gistore-developer
 - **Test Environment**: Full access (create, read, update, list)
 - **Production Environment**: Read-only access
 
 ### Applications (AppRoles)
-- **axonaio-test AppRole**
-  - Policy: axonaio-approle-test
+- **gistore-test AppRole**
+  - Policy: gistore-approle-test
   - Access: Read-only to test secrets
   
-- **axonaio-production AppRole**
-  - Policy: axonaio-approle-production
+- **gistore-production AppRole**
+  - Policy: gistore-approle-production
   - Access: Read-only to production secrets
 
 ## Token Configuration

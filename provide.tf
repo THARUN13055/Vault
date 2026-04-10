@@ -5,6 +5,12 @@ terraform {
       version = "~> 3.20"
     }
   }
+  cloud {
+    organization = "axonaio"
+    workspaces {
+      name = "gistore"
+    }
+  }
 }
 
 provider "vault" {

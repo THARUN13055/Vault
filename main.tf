@@ -36,7 +36,7 @@ module "group_entities" {
 # Create KV secret engine and add secrets
 module "kv" {
   source      = "./modules/kv"
-  mount_path  = "axonaio-kv-secrets"
+  mount_path  = "gistore-kv-secrets"
   description = "KV Version 2 secret engine mount"
   secrets     = local.kv_secrets
 }
@@ -44,7 +44,7 @@ module "kv" {
 # Create AppRole auth method and add approles
 module "approle" {
   source               = "./modules/approle"
-  approle_backend_path = "axonaio"
+  approle_backend_path = "gistore"
   approle              = local.approles
   depends_on           = [module.policy]
 }
